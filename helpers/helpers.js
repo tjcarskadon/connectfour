@@ -36,8 +36,6 @@ const checkDiagWin = (x, y, board, player) => {
   const leftCombo = downRight + upLeft === 5;
   const rightCombo = downLeft + upRight === 5;
 
-  // console.log(upWin, downWin, leftCombo, rightCombo)
-
   return downWin || upWin || leftCombo || rightCombo ;
 };
 
@@ -95,9 +93,16 @@ const checkHorizontalWin = (x, y, board, player) => {
   return left === 4 || right === 4 || left + right === 5;
 };
 
+const isValidMove = (x, y, board) => (
+  board[x][y] === 0 && (parseInt(x) === board.length -1 || board[parseInt(x) + 1][y] !== 0)
+);
 
-const isValidMove = (x, y, board) => {
-  return board[x][y] === 0 && (x === board.length -1 || board[x + 1][y] !== 0)
+const checkWin = (x, y, board, player) => {
+  return (
+    checkHorizontalWin(x, y, board, player) ||
+    checkVerticalWin(x, y, board, player) ||
+    checkDiagWin(x, y, board, player)
+  );
 }
 
 export {
@@ -111,4 +116,5 @@ checkDiagWin,
 checkVerticalWin,
 checkHorizontalWin,
 isValidMove,
+checkWin,
 };

@@ -22,7 +22,7 @@ const Row = styled.div`
 
 const Hole = styled.div`
   border-radius: 50%;
-  background-color: cornflowerblue;
+  background-color: ${(props) => props.bgColor};
   height: 100px;
   width: 100px;
   margin: 5px;
