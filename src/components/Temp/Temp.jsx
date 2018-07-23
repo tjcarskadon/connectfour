@@ -1,5 +1,6 @@
 import React from 'react';
 
+const tfn = () => 3;
 class Temp extends React.Component {
 
   constructor() {
@@ -9,7 +10,7 @@ class Temp extends React.Component {
     }
   }
 
-  changeCountTo10 = () => {
+  changeCountTo10 () {
     this.setState({count: 10});
   }
 
@@ -21,3 +22,4 @@ class Temp extends React.Component {
 }
 
 export default Temp;
+export { tfn };
