@@ -57,6 +57,14 @@ const dWin = [
   [0,1,0,1,0,2,0],
   [1,0,1,0,1,0,2],
 ];
+const moveCheck = [
+  [0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0],
+  [0,1,0,0,0,0,0],
+  [0,2,0,1,0,0,0],
+  [0,1,2,2,0,0,0],
+];
 const boards = {
   b1,
   b2,
@@ -65,6 +73,7 @@ const boards = {
   hWin,
   vWin,
   dWin,
+  moveCheck,
 };
 
 export default boards;

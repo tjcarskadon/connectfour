@@ -1,4 +1,3 @@
-import { shallow } from 'enzyme';
 import { checkDiagUp, checkDiagDown } from '../helpers/helpers.js';
 import boards from '../helpers/mockBoardData.js';
 

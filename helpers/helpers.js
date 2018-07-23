@@ -1,7 +1,6 @@
 import { zip } from "../node_modules/rxjs";
 
 // Helpers file for building the game logic prior to actually writing any ui code
-
 const checkDiagUp = (x, y, board, player, direction) => {
   let cnt = 0;
   const limit = x >= 4 ? x - 4 : 0;
@@ -89,13 +88,19 @@ const checkHorizontalRight = (x, y, board, player) => {
   }, 0);
 }
 
-
 const checkHorizontalWin = (x, y, board, player) => {
   const left = checkHorizontalLeft(x, y, board, player);
   const right = checkHorizontalRight(x, y, board, player);
 
   return left === 4 || right === 4 || left + right === 5;
 };
+
+
+const isValidMove = (x, y, board) => {
+  // make sure the spaces is empty
+  // if the space is empty check to make sure the space below is empty
+  return board[x][y] === 0 && (x === board.length -1 || board[x + 1][y] !== 0)
+}
 
 export {
 checkVerticalUp,
@@ -107,4 +112,5 @@ checkDiagUp,
 checkDiagWin,
 checkVerticalWin,
 checkHorizontalWin,
+isValidMove,
 };
