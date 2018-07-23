@@ -97,8 +97,6 @@ const checkHorizontalWin = (x, y, board, player) => {
 
 
 const isValidMove = (x, y, board) => {
-  // make sure the spaces is empty
-  // if the space is empty check to make sure the space below is empty
   return board[x][y] === 0 && (x === board.length -1 || board[x + 1][y] !== 0)
 }
 

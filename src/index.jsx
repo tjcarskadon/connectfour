@@ -1,8 +1,5 @@
 import React from "react";
 import ReactDom from "react-dom";
+import Game from './Pages/Game.jsx';
 
-const Test = () => {
-  return <div>Hello from the test component</div>
-}
-
-ReactDom.render(<Test />, document.getElementById("index"));
+ReactDom.render(<Game />, document.getElementById("index"));
