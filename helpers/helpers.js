@@ -54,31 +54,25 @@ const checkVerticalWin = (x, y, board, player) => {
   return checkVerticalDown(x, y, board, player) === 4;
 };
 
-const checkHorizontalLeft = (x, y, board, player) => {
-  const row = board[x].slice(0, ++y);
-  return row.reduceRight((acc, val) => {
-    if(val === player) {
-      acc++;
+const checkHorizontal = (x, y, board, player, direction) => {
+  const row = direction === 'right'
+         ? board[x].slice(y).reverse()
+         : board[x].slice(0, y+1);
+  let cnt = 0;
+  for (let i = row.length -1; i >= 0; i--) {
+    if(row[i] === player) {
+      cnt++;
+    } else {
+      break;
     }
-    return acc;
-  }, 0);
-
+  }
+  return cnt;
 };
 
-const checkHorizontalRight = (x, y, board, player) => {
-  const row = board[x].slice(y);
-  return row.reduce((acc, val) => {
-    if(val === player) {
-      acc++;
-    }
-    return acc;
-  }, 0);
-}
 
 const checkHorizontalWin = (x, y, board, player) => {
-  const left = checkHorizontalLeft(x, y, board, player);
-  const right = checkHorizontalRight(x, y, board, player);
-
+  const left = checkHorizontal(x, y, board, player, 'left');
+  const right = checkHorizontal(x, y, board, player, 'right');
   return left === 4 || right === 4 || left + right === 5;
 };
 
@@ -96,8 +90,7 @@ const checkWin = (x, y, board, player) => {
 
 export {
 checkVerticalDown,
-checkHorizontalLeft,
-checkHorizontalRight,
+checkHorizontal,
 checkDiagDown,
 checkDiagUp,
 checkDiagWin,
