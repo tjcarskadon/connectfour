@@ -55,15 +55,23 @@ const checkVerticalWin = (x, y, board, player) => {
 };
 
 const checkHorizontal = (x, y, board, player, direction) => {
-  const row = direction === 'right'
-         ? board[x].slice(y).reverse()
-         : board[x].slice(0, y+1);
+  const row = board[x];
   let cnt = 0;
-  for (let i = row.length -1; i >= 0; i--) {
-    if(row[i] === player) {
-      cnt++;
-    } else {
-      break;
+  if (direction === 'left') {
+    for (let i = y; i >= 0; i--) {
+      if(row[i] === player) {
+        cnt++;
+      } else {
+        break;
+      }
+    }
+  } else {
+    for (let i = y; i < row.length; i++) {
+      if(row[i] === player) {
+        cnt++;
+      } else {
+        break;
+      }
     }
   }
   return cnt;

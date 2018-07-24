@@ -1,17 +1,22 @@
 import styled, { keyframes } from 'styled-components';
 import { StartButton } from '../Start/Start.css.js';
 
-const keyFrameTest = (props) => keyframes`
-  0% {
-    top: ${(props) => props.top ? props.top : '100px'}
-    /* top: 100px; */
-  }
-  100% {
-    top: 800px;
-  }
-`
+const keyFrameTest = (props) => {
+  const t = props.top;
+  return keyframes`
+    0% {
+      top: ${t};
+      visibility: visible;
+    }
+    100% {
+      top: 100px;
+      visibility: hidden;
+    }
+  `
+}
+
 const GameWrapper = styled.div`
-  width: 765px;
+  width: 780px;
   height: 753px;
   position: fixed;
   z-index: 1;
@@ -20,7 +25,7 @@ const GameWrapper = styled.div`
 `;
 
 const Frame = styled.div`
-  width: 735px;
+  width: 763px;
   height: 662px;
   position: relative;
   z-index: 4;
@@ -40,6 +45,7 @@ const Hole = styled.div`
   height: 100px;
   width: 100px;
   margin: 5px;
+  transition: background-color 200ms ease-in .95s;
 `;
 
 const Slot = styled.div`
@@ -52,15 +58,17 @@ const Slot = styled.div`
 const Token = styled.div`
   border-radius: 50%;
   position: relative;
-  background-color: papayawhip;
+  background-color: ${(props) => props.bgColor};
   height: 100px;
   width: 100px;
+  top: 0;
   margin-top: -100px;
   margin-left: 7px;
-  ${(props) => props.animate ? `animation: ${keyFrameTest(props)} 3s ease-in-out 0s` : null};
+  ${(props) => props.animate ? `animation: ${keyFrameTest(props)} 1s linear 0s` : null};
   ${(props) => props.showMe ? 'visibility: visible' : 'visibility: hidden'};
 `
-
+const newToken = styled(Token)`
+`
 const Winner = styled.div`
   font-family: Source Sans Pro;
   font-size: 30px;

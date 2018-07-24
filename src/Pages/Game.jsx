@@ -17,16 +17,16 @@ class Game extends Component {
         [0,0,0,0,0,0,0],
       ],
       activePlayer: 1,
-      moveCount: 0,
       activeGame: false,
       player1: '',
       player2: '',
       buttonText: 'Save',
       winner: null,
+      dropToken: false
     }
   }
   handleClick = (e) => {
-    const { board, activePlayer, moveCount } = this.state;
+    const { board, activePlayer } = this.state;
     const nextPlayer = activePlayer === 1 ? 2 : 1;
     const [ x, y ] = e.target.dataset.xy.split(',');
     let i = parseInt(x) === -1 ? 0 : x;
@@ -47,7 +47,7 @@ class Game extends Component {
       this.setState({
         board,
         activePlayer: nextPlayer,
-        moveCount: moveCount + 1,
+        dropToken: true,
       });
     }
   }
@@ -62,7 +62,11 @@ class Game extends Component {
       [0,0,0,0,0,0,0],
     ];
 
-    this.setState({board, winner: null})
+    this.setState({
+      board,
+      winner: null,
+      activePlayer: 1,
+    });
 
   }
 
@@ -89,13 +93,14 @@ class Game extends Component {
   }
 
   render () {
-    const { activeGame, activePlayer, board, buttonText, winner } = this.state;
+    const { activeGame, activePlayer, board, buttonText, winner, dropToken } = this.state;
     if (activeGame) {
       return <GameBoard
                 handleClick={this.handleClick}
                 board={board}
                 winner={winner}
                 resetGame={this.resetGame}
+                dropToken={dropToken}
               />
     }
     return <Start
