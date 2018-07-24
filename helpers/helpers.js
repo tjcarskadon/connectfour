@@ -39,17 +39,6 @@ const checkDiagWin = (x, y, board, player) => {
   return downWin || upWin || leftCombo || rightCombo ;
 };
 
-const checkVerticalUp = (x, y, board, player) => {
-  let cnt = 0;
-  const limit = x >= 4 ? x - 4 : 0;
-  for (let i = x; i >= limit; i--) {
-    if (board[i][y] === player) {
-      cnt++;
-    }
-  }
-  return cnt;
-};
-
 const checkVerticalDown = (x, y, board, player) => {
   let cnt = 0;
   const limit = x + 4 <= board.length - 1 ? x + 4 : board.length;
@@ -106,7 +95,6 @@ const checkWin = (x, y, board, player) => {
 }
 
 export {
-checkVerticalUp,
 checkVerticalDown,
 checkHorizontalLeft,
 checkHorizontalRight,

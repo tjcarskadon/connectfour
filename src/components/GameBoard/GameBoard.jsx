@@ -1,5 +1,5 @@
 import React from 'react';
-import { Frame, GameWrapper, Hole, Row} from './GameBoard.css.js';
+import { Frame, GameWrapper, Hole, Row, Slot } from './GameBoard.css.js';
 
 const buildRow = (i, handleClick, board) => {
 
@@ -16,6 +16,12 @@ const buildRow = (i, handleClick, board) => {
   });
 };
 
+const buildSlotRow = (handleClick) => (
+  [...Array(7).keys()].map((val, j) => (
+    <Slot key={j} onClick={handleClick} data-xy={[-1, j]} />
+  ))
+);
+
 const buildBoard = (handleClick, board) => (
   [...Array(6).keys()].map((val, i) => <Row key={i}> {buildRow(i, handleClick, board)} </Row>)
 );
@@ -24,6 +30,9 @@ const GameBoard = ({handleClick, board}) => {
   return (
     <GameWrapper>
       <Frame>
+        <Row>
+          {buildSlotRow(handleClick)}
+        </Row>
         {buildBoard(handleClick, board)}
       </ Frame>
     </ GameWrapper>

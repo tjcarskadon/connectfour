@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const GameWrapper = styled.div`
   width: 765px;
-  height: 700px;
+  height: 800px;
   background-color: cornflowerblue;
   padding-top: 10px;
 `;
@@ -11,7 +11,7 @@ const Frame = styled.div`
   width: 735px;
   height: 662px;
   background-color: yellow;
-  margin: 20px auto;
+  margin: 90px auto;
 `;
 
 const Row = styled.div`
@@ -28,4 +28,11 @@ const Hole = styled.div`
   margin: 5px;
 `;
 
-export { Frame, GameWrapper, Hole, Row };
+const Slot = styled.div`
+  background-color: cornflowerblue;
+  height: 100px;
+  width: 100px;
+  margin-top: -100px;
+`;
+
+export { Frame, GameWrapper, Hole, Row, Slot };

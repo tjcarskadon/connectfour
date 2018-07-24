@@ -23,11 +23,18 @@ class Game extends Component {
     const { board, activePlayer, moveCount } = this.state;
     const nextPlayer = activePlayer === 1 ? 2 : 1;
     const [ x, y ] = e.target.dataset.xy.split(',');
+    let i = parseInt(x) === -1 ? 0 : x;
 
-    if (isValidMove(x, y, board)) {
-      board[x][y] = activePlayer;
+    while (i < board.length - 1) {
+      if (isValidMove(i, y, board)) {
+        break;
+      }
+      i++;
+    }
+    if (isValidMove(i, y, board)) {
+      board[i][y] = activePlayer;
 
-      if (checkWin(x, y, board, activePlayer)) {
+      if (checkWin(i, y, board, activePlayer)) {
         console.log(`Player ${activePlayer} wins!!!`);
       }
       this.setState({
