@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GameBoard from '../components/GameBoard/GameBoard.jsx';
+import Start from '../components/Start/Start.jsx';
 import { isValidMove, checkWin } from '../../helpers/helpers.js';
 
 
@@ -17,6 +18,11 @@ class Game extends Component {
       ],
       activePlayer: 1,
       moveCount: 0,
+      activeGame: false,
+      player1: '',
+      player2: '',
+      buttonText: 'Save',
+      winner: null,
     }
   }
   handleClick = (e) => {
@@ -31,11 +37,13 @@ class Game extends Component {
       }
       i++;
     }
-    if (isValidMove(i, y, board)) {
+    if (isValidMove(i, y, board) && !this.state.winner) {
       board[i][y] = activePlayer;
 
       if (checkWin(i, y, board, activePlayer)) {
-        console.log(`Player ${activePlayer} wins!!!`);
+        const winnerName = activePlayer === 1 ? this.state.player1 : this.state.player2;
+        console.log('winner', winnerName)
+        this.setState({winner: winnerName})
       }
       this.setState({
         board,
@@ -45,11 +53,43 @@ class Game extends Component {
     }
   }
 
-  render () {
-    return (
-      <GameBoard handleClick={this.handleClick} board={this.state.board} />
-    );
+  handleSaveName = (e) => {
+    e.target.previousSibling.value = '';
+    const nextPlayer = this.state.activePlayer === 1 ? 2 : 1;
 
+    this.setState({
+      activePlayer: nextPlayer,
+      buttonText: 'Start',
+    });
+
+    if (this.state.activePlayer === 2) {
+      this.setState({activeGame: true});
+    }
+  }
+
+  handleChange = (e) => {
+    if (this.state.activePlayer === 1) {
+      this.setState({player1: e.target.value});
+    } else {
+      this.setState({player2: e.target.value});
+    }
+  }
+
+  manageComponentDisplay = () => {
+    const { activeGame, activePlayer, board, buttonText, winner } = this.state;
+    if (activeGame) {
+      return <GameBoard handleClick={this.handleClick} board={board} winner={winner} />
+    }
+    return <Start
+              buttonText={buttonText}
+              player={activePlayer}
+              handleChange={this.handleChange}
+              handleSaveName={this.handleSaveName}
+            />
+  }
+
+  render () {
+    return this.manageComponentDisplay()
   }
 }
 
