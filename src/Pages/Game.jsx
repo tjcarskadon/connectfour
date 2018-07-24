@@ -42,7 +42,6 @@ class Game extends Component {
 
       if (checkWin(i, y, board, activePlayer)) {
         const winnerName = activePlayer === 1 ? this.state.player1 : this.state.player2;
-        console.log('winner', winnerName)
         this.setState({winner: winnerName})
       }
       this.setState({
@@ -51,6 +50,20 @@ class Game extends Component {
         moveCount: moveCount + 1,
       });
     }
+  }
+
+  resetGame = () => {
+    const board = [
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+    ];
+
+    this.setState({board, winner: null})
+
   }
 
   handleSaveName = (e) => {
@@ -75,10 +88,15 @@ class Game extends Component {
     }
   }
 
-  manageComponentDisplay = () => {
+  render () {
     const { activeGame, activePlayer, board, buttonText, winner } = this.state;
     if (activeGame) {
-      return <GameBoard handleClick={this.handleClick} board={board} winner={winner} />
+      return <GameBoard
+                handleClick={this.handleClick}
+                board={board}
+                winner={winner}
+                resetGame={this.resetGame}
+              />
     }
     return <Start
               buttonText={buttonText}
@@ -86,10 +104,6 @@ class Game extends Component {
               handleChange={this.handleChange}
               handleSaveName={this.handleSaveName}
             />
-  }
-
-  render () {
-    return this.manageComponentDisplay()
   }
 }
 

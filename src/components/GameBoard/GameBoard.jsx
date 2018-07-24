@@ -3,6 +3,7 @@ import {
   Frame,
   GameWrapper,
   Hole,
+  ResetButton,
   Row,
   Slot,
   Token,
@@ -37,18 +38,21 @@ const buildBoard = (handleClick, board) => (
   [...Array(6).keys()].map((val, i) => <Row key={i}> {buildRow(i, handleClick, board)} </Row>)
 );
 
-const GameBoard = ({handleClick, board, winner}) => {
+const GameBoard = ({handleClick, board, winner, resetGame}) => {
   return (
     <GameWrapper>
       { winner
         ? <Winner>
             Congratulations {winner} you win!!!
+            <ResetButton onClick={resetGame} >
+              Reset Board
+            </ ResetButton>
           </Winner>
         : null
       }
       <Frame>
         <Row>
-          {buildSlotRow(handleClick)}
+          { winner ? null : buildSlotRow(handleClick)}
         </Row>
         {buildBoard(handleClick, board)}
       </ Frame>

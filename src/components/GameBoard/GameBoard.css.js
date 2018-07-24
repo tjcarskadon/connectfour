@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { StartButton } from '../Start/Start.css.js';
 
 const keyFrameTest = (props) => keyframes`
   0% {
@@ -11,7 +12,7 @@ const keyFrameTest = (props) => keyframes`
 `
 const GameWrapper = styled.div`
   width: 765px;
-  height: 800px;
+  height: 753px;
   position: fixed;
   z-index: 1;
   background-color: cornflowerblue;
@@ -69,5 +70,12 @@ const Winner = styled.div`
   padding-top: 20px;
   margin-bottom: -58px;
 `
+const ResetButton = styled(StartButton)`
+  margin-left: 10px;
+  display: inline;
+  font-size: 14px;
+  padding: 10px;
+  border: none
+`
 
-export { Frame, GameWrapper, Hole, Row, Slot, Token, Winner };
+export { Frame, GameWrapper, Hole, Row, ResetButton, Slot, Token, Winner };
