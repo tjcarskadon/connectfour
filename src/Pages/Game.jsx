@@ -22,7 +22,6 @@ class Game extends Component {
       player2: '',
       buttonText: 'Save',
       winner: null,
-      dropToken: false
     }
   }
   handleClick = (e) => {
@@ -47,7 +46,6 @@ class Game extends Component {
       this.setState({
         board,
         activePlayer: nextPlayer,
-        dropToken: true,
       });
     }
   }
@@ -93,14 +91,13 @@ class Game extends Component {
   }
 
   render () {
-    const { activeGame, activePlayer, board, buttonText, winner, dropToken } = this.state;
+    const { activeGame, activePlayer, board, buttonText, winner } = this.state;
     if (activeGame) {
       return <GameBoard
                 handleClick={this.handleClick}
                 board={board}
                 winner={winner}
                 resetGame={this.resetGame}
-                dropToken={dropToken}
               />
     }
     return <Start

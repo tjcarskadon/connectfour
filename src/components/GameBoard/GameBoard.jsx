@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Frame,
   GameWrapper,
@@ -10,7 +11,7 @@ import {
   Winner,
 } from './GameBoard.css.js';
 
-const buildRow = (i, handleClick, board, dropToken) => {
+const buildRow = (i, handleClick, board) => {
 
   return [...Array(7).keys()].map((val, j) => {
     let bgColor = 'cornflowerblue';
@@ -33,17 +34,17 @@ const buildRow = (i, handleClick, board, dropToken) => {
   });
 };
 
-const buildSlotRow = (handleClick, dropToken) => (
+const buildSlotRow = (handleClick) => (
   [...Array(7).keys()].map((val, j) => <Slot key={j} onClick={handleClick} data-xy={[-1, j]} />)
 );
 
-const buildBoard = (handleClick, board, dropToken) => (
+const buildBoard = (handleClick, board) => (
   [...Array(6).keys()].map((val, i) => (
-    <Row key={i}> {buildRow(i, handleClick, board, dropToken)} </Row>
+    <Row key={i}> {buildRow(i, handleClick, board)} </Row>
   ))
 );
 
-const GameBoard = ({handleClick, board, winner, resetGame, dropToken}) => {
+const GameBoard = ({handleClick, board, winner, resetGame }) => {
   return (
     <GameWrapper>
       { winner
@@ -57,12 +58,20 @@ const GameBoard = ({handleClick, board, winner, resetGame, dropToken}) => {
       }
       <Frame>
         <Row>
-          { winner ? null : buildSlotRow(handleClick, dropToken)}
+          { winner ? null : buildSlotRow(handleClick)}
         </Row>
         {buildBoard(handleClick, board)}
       </ Frame>
     </ GameWrapper>
   );
 }
+
+GameBoard.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  board: PropTypes.array.isRequired,
+  winner: PropTypes.string.isRequired,
+  resetGame: PropTypes.func.isRequired,
+}
+
 
 export default GameBoard;
