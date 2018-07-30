@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { GameBoardContext } from '../../Pages/Game.jsx'
 import {
   Frame,
   GameWrapper,
@@ -44,34 +45,36 @@ const buildBoard = (handleClick, board) => (
   ))
 );
 
-const GameBoard = ({handleClick, board, winner, resetGame }) => {
-  return (
-    <GameWrapper>
-      { winner
-        ? <Winner>
-            Congratulations {winner} you win!!!
-            <ResetButton onClick={resetGame} >
-              Reset Board
-            </ ResetButton>
-          </Winner>
-        : null
-      }
-      <Frame>
-        <Row>
-          { winner ? null : buildSlotRow(handleClick)}
-        </Row>
-        {buildBoard(handleClick, board)}
-      </ Frame>
-    </ GameWrapper>
-  );
-}
+const GameBoard = () => (
+  <GameBoardContext.Consumer>
+    { ({handleClick, board, winner, resetGame }) => (
+        <GameWrapper>
+          { winner
+            ? <Winner>
+                Congratulations {winner} you win!!!
+                <ResetButton onClick={resetGame} >
+                  Reset Board
+                </ ResetButton>
+              </Winner>
+            : null
+          }
+          <Frame>
+            <Row>
+              { winner ? null : buildSlotRow(handleClick)}
+            </Row>
+            {buildBoard(handleClick, board)}
+          </ Frame>
+        </ GameWrapper>
+    )}
+  </GameBoardContext.Consumer>
+);
 
-GameBoard.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  board: PropTypes.array.isRequired,
-  winner: PropTypes.string.isRequired,
-  resetGame: PropTypes.func.isRequired,
-}
+// GameBoard.propTypes = {
+//   handleClick: PropTypes.func.isRequired,
+//   board: PropTypes.array.isRequired,
+//   winner: PropTypes.string.isRequired,
+//   resetGame: PropTypes.func.isRequired,
+// }
 
 
 export default GameBoard;
