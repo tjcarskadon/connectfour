@@ -1,5 +1,3 @@
-import { zip } from "../node_modules/rxjs";
-
 // Helpers file for building the game logic prior to actually writing any ui code
 const checkDiagUp = (x, y, board, player, direction) => {
   let cnt = 0;
